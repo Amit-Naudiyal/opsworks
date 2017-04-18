@@ -1,0 +1,245 @@
+Actual Success in us-east-1
+
+
++ Name=eadpgamenocor-qos-gs-qos
+++ enisg=sg-451c7d3a
++++ /opt/ec2/bin/ec2-metadata -i
++++ awk '{print $2}'
+++ instanceid=i-00e861e7f9369fa6b
++++ /opt/ec2/bin/ec2-metadata -z
++++ awk '{print $2}'
+++ az=us-east-1a
++++ echo us-east-1a
++++ sed -e 's:\([0-9][0-9]*\)[a-z]*$:\1:'
+++ region=us-east-1
++++ aws ec2 describe-instances --instance-id i-00e861e7f9369fa6b --region us-east-1 --query 'Reservations[*].[Instances[0].SubnetId]' --output text
+++ subnet=subnet-818a13f6
++++ aws ec2 create-network-interface --subnet-id subnet-818a13f6 --groups sg-451c7d3a --secondary-private-ip-address-count 3 --query NetworkInterface.NetworkInterfaceId --output text --region us-east-1
+++ eni=eni-1ea288fc
+++ aws ec2 attach-network-interface --network-interface-id eni-1ea288fc --instance-id i-00e861e7f9369fa6b --device-index 1 --region us-east-1
+{
+    "AttachmentId": "eni-attach-4164977a"
+}
++++ aws ec2 describe-network-interfaces --network-interface-ids eni-1ea288fc --region us-east-1 --query 'NetworkInterfaces[0].Attachment.AttachmentId' --output text
+++ attachid=eni-attach-4164977a
+++ aws ec2 modify-network-interface-attribute --region us-east-1 --network-interface-id eni-1ea288fc --attachment AttachmentId=eni-attach-4164977a,DeleteOnTermination=true
++++ aws ec2 --region us-east-1 describe-network-interfaces --network-interface-ids eni-1ea288fc --query 'NetworkInterfaces[0].PrivateIpAddresses[*].PrivateIpAddress' --output text
+++ priv_ip='10.19.96.226	10.19.96.18	10.19.96.116	10.19.96.136'
++++ aws ec2 --region us-east-1 describe-addresses --query 'Addresses[*][AllocationId,PrivateIpAddress]' --public-ips 52.200.232.113 52.200.232.173 52.200.232.193 52.200.232.217 52.200.232.232 52.200.232.246 52.200.232.247 52.200.232.251 --output text
++++ awk '{print $1}'
+++ eipalloc='eipalloc-6ee86309
+eipalloc-40ed6627
+eipalloc-d0e56eb7
+eipalloc-17e86370
+eipalloc-d7e56eb0
+eipalloc-66fa7101
+eipalloc-1ae46f7d
+eipalloc-88e368ef'
+++ for ip in '${priv_ip}'
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-6ee86309 --private-ip-address 10.19.96.226
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-6ee86309 is already associated with associate-id eipassoc-f4ec5fc4
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-40ed6627 --private-ip-address 10.19.96.226
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-40ed6627 is already associated with associate-id eipassoc-a6d36096
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-d0e56eb7 --private-ip-address 10.19.96.226
+{
+    "AssociationId": "eipassoc-c9c774f9"
+}
+++ '[0' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [0: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-17e86370 --private-ip-address 10.19.96.226
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eni-1ea288fc and 10.19.96.226 is already associated with public address 52.200.232.232
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-d7e56eb0 --private-ip-address 10.19.96.226
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eni-1ea288fc and 10.19.96.226 is already associated with public address 52.200.232.232
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-66fa7101 --private-ip-address 10.19.96.226
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eni-1ea288fc and 10.19.96.226 is already associated with public address 52.200.232.232
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-1ae46f7d --private-ip-address 10.19.96.226
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eni-1ea288fc and 10.19.96.226 is already associated with public address 52.200.232.232
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-88e368ef --private-ip-address 10.19.96.226
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eni-1ea288fc and 10.19.96.226 is already associated with public address 52.200.232.232
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for ip in '${priv_ip}'
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-6ee86309 --private-ip-address 10.19.96.18
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-6ee86309 is already associated with associate-id eipassoc-f4ec5fc4
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-40ed6627 --private-ip-address 10.19.96.18
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-40ed6627 is already associated with associate-id eipassoc-a6d36096
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-d0e56eb7 --private-ip-address 10.19.96.18
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-d0e56eb7 is already associated with associate-id eipassoc-c9c774f9
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-17e86370 --private-ip-address 10.19.96.18
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-17e86370 is already associated with associate-id eipassoc-bfd0638f
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-d7e56eb0 --private-ip-address 10.19.96.18
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-d7e56eb0 is already associated with associate-id eipassoc-36ec5f06
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-66fa7101 --private-ip-address 10.19.96.18
+{
+    "AssociationId": "eipassoc-eadd6eda"
+}
+++ '[0' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [0: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-1ae46f7d --private-ip-address 10.19.96.18
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eni-1ea288fc and 10.19.96.18 is already associated with public address 52.200.232.251
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-88e368ef --private-ip-address 10.19.96.18
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eni-1ea288fc and 10.19.96.18 is already associated with public address 52.200.232.251
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for ip in '${priv_ip}'
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-6ee86309 --private-ip-address 10.19.96.116
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-6ee86309 is already associated with associate-id eipassoc-f4ec5fc4
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-40ed6627 --private-ip-address 10.19.96.116
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-40ed6627 is already associated with associate-id eipassoc-a6d36096
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-d0e56eb7 --private-ip-address 10.19.96.116
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-d0e56eb7 is already associated with associate-id eipassoc-c9c774f9
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-17e86370 --private-ip-address 10.19.96.116
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-17e86370 is already associated with associate-id eipassoc-bfd0638f
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-d7e56eb0 --private-ip-address 10.19.96.116
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-d7e56eb0 is already associated with associate-id eipassoc-36ec5f06
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-66fa7101 --private-ip-address 10.19.96.116
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-66fa7101 is already associated with associate-id eipassoc-eadd6eda
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-1ae46f7d --private-ip-address 10.19.96.116
+{
+    "AssociationId": "eipassoc-d7c271e7"
+}
+++ '[0' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [0: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-88e368ef --private-ip-address 10.19.96.116
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eni-1ea288fc and 10.19.96.116 is already associated with public address 52.200.232.246
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for ip in '${priv_ip}'
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-6ee86309 --private-ip-address 10.19.96.136
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-6ee86309 is already associated with associate-id eipassoc-f4ec5fc4
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-40ed6627 --private-ip-address 10.19.96.136
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-40ed6627 is already associated with associate-id eipassoc-a6d36096
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-d0e56eb7 --private-ip-address 10.19.96.136
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-d0e56eb7 is already associated with associate-id eipassoc-c9c774f9
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-17e86370 --private-ip-address 10.19.96.136
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-17e86370 is already associated with associate-id eipassoc-bfd0638f
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-d7e56eb0 --private-ip-address 10.19.96.136
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-d7e56eb0 is already associated with associate-id eipassoc-36ec5f06
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-66fa7101 --private-ip-address 10.19.96.136
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-66fa7101 is already associated with associate-id eipassoc-eadd6eda
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-1ae46f7d --private-ip-address 10.19.96.136
+
+A client error (Resource.AlreadyAssociated) occurred when calling the AssociateAddress operation: resource eipalloc-1ae46f7d is already associated with associate-id eipassoc-d7c271e7
+++ '[255' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [255: command not found
+++ for eip in '${eipalloc}'
+++ aws ec2 associate-address --region us-east-1 --network-interface-id eni-1ea288fc --allocation-id eipalloc-88e368ef --private-ip-address 10.19.96.136
+{
+    "AssociationId": "eipassoc-eedd6ede"
+}
+++ '[0' -eq 0 ']'
+/tmp/user-data.86OVA9: line 28: [0: command not found
++ rm -f /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Debuginfo.repo /etc/yum.repos.d/CentOS-Media.repo /etc/yum.repos.d/CentOS-Vault.repo /etc/yum.repos.d/CentOS-fasttrack.repo
++ yum install -y e2fsprogs
+Loaded plugins: fastestmirror, s3iam, security
+Setting up Install Process
+Determining fastest mirrors
+ * epel: mirror.math.princeton.edu
+Package e2fsprogs-1.41.12-22.el6.x86_64 already installed and latest version
+
